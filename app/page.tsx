@@ -1,5 +1,5 @@
 import Board from "@/Components/Board";
-import Cards from "@/Components/Cards";
+import Deck from "@/Components/Deck";
 
 export default function Home() {
   return (
@@ -7,7 +7,7 @@ export default function Home() {
       <main className="flex min-h-screen w-full flex-col px-16">
         <div className="flex justify-center min-h-screen">
           <Board />
-          <Cards /> 
+          <Deck /> 
         </div>
       </main>
     </div>
