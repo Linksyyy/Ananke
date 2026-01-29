@@ -66,7 +66,7 @@ export default function Board() {
               textAnchor="middle"
               dy="4"
             >
-              {hex.q},{hex.r}
+              {hex.q},{hex.r},{hex.s}
             </text>
           </g>
         );
