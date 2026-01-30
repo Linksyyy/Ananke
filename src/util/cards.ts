@@ -1,6 +1,6 @@
 const cards: Card[] = [
   {
-    id: "paradox-incarnate",
+    id: "1",
     name: "Paradox Incarnate",
 
     color: "#8b1e3f",
@@ -34,7 +34,7 @@ const cards: Card[] = [
   },
 
   {
-    id: "veiled-hypercube",
+    id: "2",
     name: "Veiled Hypercube",
 
     color: "#2e3a87",
@@ -63,7 +63,7 @@ const cards: Card[] = [
   },
 
   {
-    id: "axis-of-negation",
+    id: "3",
     name: "Axis of Negation",
 
     color: "#111111",
@@ -92,7 +92,7 @@ const cards: Card[] = [
   },
 
   {
-    id: "erosive-continuum",
+    id: "4",
     name: "Erosive Continuum",
 
     color: "#6b705c",

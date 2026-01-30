@@ -1,5 +1,8 @@
 "use client";
 
+import React, { useState } from "react";
+import { useCards } from "../store/cardsStore";
+
 export default function Card({
   card,
   isHovered,
@@ -7,8 +10,22 @@ export default function Card({
   card: Card;
   isHovered: boolean;
 }) {
+  const { selectedCard, setSelectedCard } = useCards();
+  const [clicked, setClicked] = useState(false);
+
+  function handleClick() {
+    if (!selectedCard) {
+      setSelectedCard(card.id);
+      setClicked(true);
+      setTimeout(() => setClicked(false), 290);
+    }
+  }
+
   return (
-    <div className="group h-72 w-48 rounded-2xl p-2">
+    <div
+      className={`group h-72 w-48 rounded-2xl p-2 ${clicked ? "-translate-y-100 opacity-10 scale-150 transition-all duration-350" : ""}`}
+      onClick={handleClick}
+    >
       <div
         className={`absolute inset-0 rounded-2xl transition-opacity ${
           isHovered ? "opacity-10 blur-md" : "opacity-10"
@@ -49,7 +66,7 @@ export default function Card({
 
         <div className="relative flex-1 flex items-center justify-center px-2">
           <img
-            src={`${card.id}.png`}
+            src={`${card.name.toLowerCase().replaceAll(" ", "-")}.png`}
             alt={card.name}
             className={`max-h-full object-contain transition-transform duration-300 ${
               isHovered ? "scale-90" : ""

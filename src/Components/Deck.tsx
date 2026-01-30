@@ -11,7 +11,6 @@ export default function Cards() {
 
   useEffect(() => {
     setCards(cardsTest);
-    console.log("oi");
   }, []);
 
   return (

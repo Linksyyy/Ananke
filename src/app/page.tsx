@@ -11,7 +11,7 @@ export default function Home() {
             <Board />
           </div>
           <div className="absolute right-5 flex justify-center items-center w-100 h-2/3 m-20 bg-neutral-900 mx-10 rounded-4xl">
-            <div className="relative bg-neutral-950 flex w-9/10 h-9/10 mx-8 rounded-3xl justify-center items-center">
+            <div className="relative bg-neutral-950 flex w-9/10 h-15/16 mx-1 rounded-3xl justify-center items-center">
               <h1 className="italic text-gray-400 text-sm">
                 Click in one card to see description here
               </h1>
