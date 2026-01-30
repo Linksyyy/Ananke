@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import cards from "@/util/cards";
+import cards from "@/src/util/cards";
 import Card from "./Card";
 
 const cardsPlaceholer: Card[] = cards;
@@ -17,16 +17,6 @@ export default function Cards() {
 
   return (
     <div className="fixed w-full bottom-0 justify-center min-h-1/4">
-      <button
-        className="bg-red-600 w-20 h-30 absolute"
-        onClick={() => {
-          let [head, ...tail] = [...cards];
-          setCards(tail);
-        }}
-      >
-        Test button - remove card
-      </button>
-
       <div className="w-full h-full flex relative justify-center items-start mb-70">
         {cards.map((card, index) => {
           const mid = Math.floor(cards.length / 2);
@@ -36,7 +26,8 @@ export default function Cards() {
 
           return (
             <div
-            className="absolute transition-transform duration-300 ease-out"
+              key={index}
+              className="absolute transition-transform duration-300 ease-out"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
@@ -48,11 +39,7 @@ export default function Cards() {
                 zIndex: index,
               }}
             >
-              <Card
-                key={index}
-                card={card}
-                isHovered={isHovered}
-              />
+              <Card card={card} isHovered={isHovered} />
             </div>
           );
         })}

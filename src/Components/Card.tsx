@@ -11,11 +11,11 @@ export default function Card({
     <div className="group h-72 w-48 rounded-2xl p-2">
       <div
         className={`absolute inset-0 rounded-2xl transition-opacity ${
-          isHovered ? "opacity-90 blur-md" : "opacity-50"
+          isHovered ? "opacity-10 blur-md" : "opacity-10"
         }`}
         style={{
           background: `radial-gradient(circle at top,
-                    ${card.color}606, transparent 70%)`,
+            ${card.color}606, transparent 70%)`,
         }}
       />
 
