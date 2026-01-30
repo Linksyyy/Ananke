@@ -43,7 +43,7 @@ export default function Board() {
           "fill-boardInnerRing hover:fill-purple-950 stroke-purple-950";
         if (isEdge)
           fillClass =
-            "fill-boardOuterRing hover:fill-neutral-800 stroke-neutral-800";
+            "fill-boardEdge hover:fill-neutral-800 stroke-neutral-800";
         if (isCenter)
           fillClass = "fill-boardCenter hover:fill-red-900 stroke-red950";
 

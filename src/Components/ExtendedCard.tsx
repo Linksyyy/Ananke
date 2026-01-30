@@ -62,14 +62,14 @@ export default function ExtendedCard() {
 
                 <div>
                   <span className="text-neutral-400">Cost</span>
-                  <div className="mt-1 font-medium">
+                  <div className="mt-1 font-medium capitalize">
                     {selectedCard.cost.value} · {selectedCard.cost.type}
                   </div>
                 </div>
 
                 <div>
                   <span className="text-neutral-400">Domain</span>
-                  <div className="mt-1 font-medium">
+                  <div className="mt-1 font-medium capitalize">
                     {selectedCard.domain.preferredZones.join(", ")}
                   </div>
                 </div>

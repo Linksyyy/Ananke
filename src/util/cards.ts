@@ -41,7 +41,7 @@ const cards: Card[] = [
     principle: "structure",
 
     domain: {
-      preferredZones: ["outerRing"],
+      preferredZones: ["edge"],
       amplification: 1.2,
     },
 
@@ -99,7 +99,7 @@ const cards: Card[] = [
     principle: "erosion",
 
     domain: {
-      preferredZones: ["innerRing", "outerRing"],
+      preferredZones: ["innerRing", "edge"],
       amplification: 1.1,
     },
 
@@ -134,7 +134,7 @@ const cards: Card[] = [
     principle: "structure",
 
     domain: {
-      preferredZones: ["innerRing", "outerRing"],
+      preferredZones: ["innerRing", "edge"],
       amplification: 1.2,
     },
 
@@ -169,7 +169,7 @@ const cards: Card[] = [
     principle: "rupture",
 
     domain: {
-      preferredZones: ["innerRing", "outerRing"],
+      preferredZones: ["innerRing", "edge"],
       amplification: 1.15,
     },
 
@@ -204,7 +204,7 @@ const cards: Card[] = [
     principle: "structure",
 
     domain: {
-      preferredZones: ["innerRing", "outerRing"],
+      preferredZones: ["innerRing", "edge"],
       amplification: 1.25,
     },
 

@@ -10,7 +10,6 @@ type CardPrinciple =
 type BoardZone =
   | "center"
   | "innerRing"
-  | "outerRing"
   | "edge";
 
 type CostType =

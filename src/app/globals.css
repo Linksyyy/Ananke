@@ -6,7 +6,7 @@
 }
 
 @theme {
-  --color-boardOuterRing: #1a1a1a;
+  --color-boardEdge: #1a1a1a;
   --color-boardInnerRing: #301934;
   --color-boardCenter: #600030;
   --font-sans: var(--font-geist-sans);
