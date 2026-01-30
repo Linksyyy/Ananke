@@ -124,6 +124,41 @@ const cards: Card[] = [
       stackable: true,
     },
   },
+  {
+    id: "5",
+
+    name: "Structured Presence",
+
+    color: "#1e1e1e",
+
+    principle: "structure",
+
+    domain: {
+      preferredZones: ["innerRing", "outerRing"],
+      amplification: 1.2,
+    },
+
+    cost: {
+      type: "structural",
+      value: 1,
+    },
+
+    effect: {
+      type: "spatial",
+      execute() {},
+    },
+
+    echo: {
+      delay: 1,
+      trigger() {},
+    },
+
+    constraints: {
+      unique: false,
+      irreversible: false,
+      stackable: true,
+    },
+  },
 ];
 
 export default cards;

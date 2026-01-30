@@ -40,12 +40,12 @@ export default function Board() {
           Math.max(Math.abs(hex.q), Math.abs(hex.r), Math.abs(hex.s)) == radius;
 
         let fillClass =
-          "fill-purple-900 hover:fill-purple-800 stroke-purple-800";
+          "fill-boardInnerRing hover:fill-purple-950 stroke-purple-950";
         if (isEdge)
           fillClass =
-            "fill-neutral-900 hover:fill-neutral-800 stroke-neutral-800";
+            "fill-boardOuterRing hover:fill-neutral-800 stroke-neutral-800";
         if (isCenter)
-          fillClass = "fill-red-900 hover:fill-red-800 stroke-red-800";
+          fillClass = "fill-boardCenter hover:fill-red-900 stroke-red950";
 
         return (
           <g

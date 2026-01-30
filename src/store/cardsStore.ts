@@ -13,7 +13,9 @@ const useCards = create<tCardsStore>(
     ({
       cards: [],
       selectedCard: null,
+
       setCards: (arrCards: Card[]) => set({ cards: arrCards }),
+
       setSelectedCard: (cardId: string) => {
         setTimeout(
           () =>
@@ -30,9 +32,22 @@ const useCards = create<tCardsStore>(
           300,
         );
       },
+
       unsetSelectedCard: () => {
-        set((state) => ({ cards: [...state.cards, state.selectedCard] }));
-        set({ selectedCard: null });
+        set((state) => {
+          if (state.selectedCard) {
+            return {
+              cards: [...state.cards, state.selectedCard],
+            };
+          }
+          return {};
+        });
+        set((state) => {
+          if (state.selectedCard) {
+            return { selectedCard: null };
+          }
+          return {};
+        });
       },
     }) as tCardsStore,
 );

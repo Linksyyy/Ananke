@@ -10,15 +10,14 @@ export default function Card({
   card: Card;
   isHovered: boolean;
 }) {
-  const { selectedCard, setSelectedCard } = useCards();
+  const { selectedCard, setSelectedCard, unsetSelectedCard } = useCards();
   const [clicked, setClicked] = useState(false);
 
   function handleClick() {
-    if (!selectedCard) {
-      setSelectedCard(card.id);
-      setClicked(true);
-      setTimeout(() => setClicked(false), 290);
-    }
+    if (selectedCard) unsetSelectedCard();
+    setSelectedCard(card.id);
+    setClicked(true);
+    setTimeout(() => setClicked(false), 290);
   }
 
   return (
