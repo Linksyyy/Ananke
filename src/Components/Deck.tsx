@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import cards from "@/src/util/cards";
+import cardsTest from "@/src/util/cards";
 import Card from "./Card";
-
-const cardsPlaceholer: Card[] = cards;
+import { useCards } from "@/src/store/cardsStore";
 
 export default function Cards() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [cards, setCards] = useState<Card[]>([]);
+  const { cards, setCards } = useCards();
 
   useEffect(() => {
-    setCards(cardsPlaceholer);
+    setCards(cardsTest);
     console.log("oi");
   }, []);
 
