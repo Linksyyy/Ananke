@@ -72,11 +72,11 @@ export default function Board() {
               strokeWidth="2"
             />
             <circle
-              dy={0}
-              dx={0}
-              r={8}
-              z={100}
-              className="bg-neutral-200 opacity-0 group-hover:opacity-20 transition-opacity duration-150 pointer-events-none"
+              cx="0"
+              cy="0"
+              r="10"
+              z={200}
+              className="fill-neutral-400/10 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none"
             />
           </g>
         );
