@@ -26,7 +26,7 @@ export default function ExtendedCard() {
           relative w-[400px] h-[600px] =>
           rounded-3xl border border-neutral-800 bg-neutral-950
           shadow-2xl p-6 flex flex-col gap-6
-          transition-all duration-300 ease-out
+          transition-all duration-500 ease-out
           ${
             isActive
               ? "opacity-[0.98] translate-y-0 scale-100"

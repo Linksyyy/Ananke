@@ -14,10 +14,14 @@ export default function Card({
   const [clicked, setClicked] = useState(false);
 
   function handleClick() {
-    if (selectedCard) unsetSelectedCard();
-    setSelectedCard(card.id);
+    if (selectedCard) {
+      setTimeout(() => unsetSelectedCard(), 100);
+      setTimeout(() => setSelectedCard(card.id), 300);
+    } else {
+      setTimeout(() => setSelectedCard(card.id), 200);
+    }
     setClicked(true);
-    setTimeout(() => setClicked(false), 290);
+    setTimeout(() => setClicked(false), 280);
   }
 
   return (

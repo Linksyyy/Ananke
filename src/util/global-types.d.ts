@@ -21,7 +21,8 @@ type CostType =
 type EffectType =
   | "spatial"
   | "influence"
-  | "rule";
+  | "rule"
+  | "fracture";
 
 interface EffectContext {
   board: unknown;

@@ -159,6 +159,41 @@ const cards: Card[] = [
       stackable: true,
     },
   },
+  {
+    id: "6",
+
+    name: "Fracture Witness",
+
+    color: "#8a7a52",
+
+    principle: "rupture",
+
+    domain: {
+      preferredZones: ["innerRing", "outerRing"],
+      amplification: 1.15,
+    },
+
+    cost: {
+      type: "temporal",
+      value: 2,
+    },
+
+    effect: {
+      type: "fracture",
+      execute() {},
+    },
+
+    echo: {
+      delay: 1,
+      trigger() {},
+    },
+
+    constraints: {
+      unique: true,
+      irreversible: false,
+      stackable: false,
+    },
+  },
 ];
 
 export default cards;

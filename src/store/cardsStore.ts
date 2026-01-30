@@ -17,20 +17,13 @@ const useCards = create<tCardsStore>(
       setCards: (arrCards: Card[]) => set({ cards: arrCards }),
 
       setSelectedCard: (cardId: string) => {
-        setTimeout(
-          () =>
-            set((state) => ({
-              selectedCard: state.cards.filter((p) => cardId === p.id)[0],
-            })),
-          100,
-        );
-        setTimeout(
-          () =>
-            set((state) => ({
-              cards: state.cards.filter((p) => cardId !== p.id),
-            })),
-          300,
-        );
+        set((state) => {
+          const card = state.cards.filter((p) => cardId === p.id)[0]
+          return {
+            cards: state.cards.filter((p) => cardId !== p.id),
+            selectedCard: card,
+          };
+        });
       },
 
       unsetSelectedCard: () => {
