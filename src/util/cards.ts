@@ -194,6 +194,72 @@ const cards: Card[] = [
       stackable: false,
     },
   },
+  {
+    id: "7",
+
+    name: "Verdant Bastion",
+
+    color: "#3a5f3a",
+
+    principle: "structure",
+
+    domain: {
+      preferredZones: ["innerRing", "outerRing"],
+      amplification: 1.25,
+    },
+
+    cost: {
+      type: "structural",
+      value: 3,
+    },
+
+    effect: {
+      type: "spatial",
+      execute() {},
+    },
+
+    constraints: {
+      unique: false,
+      irreversible: true,
+      stackable: false,
+    },
+  },
+  {
+  id: "8",
+
+  name: "Crimson Worldroot",
+
+  color: "#b11226",
+
+  principle: "potential",
+
+  domain: {
+    preferredZones: ["center"],
+    amplification: 1.8,
+  },
+
+  cost: {
+    type: "structural",
+    value: 5,
+  },
+
+  effect: {
+    type: "influence",
+    execute() {},
+  },
+
+  echo: {
+    delay: 1,
+    trigger() {},
+  },
+
+  constraints: {
+    unique: true,
+    irreversible: false,
+    stackable: false,
+  },
+}
+
 ];
 
 export default cards;

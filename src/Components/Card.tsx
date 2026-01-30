@@ -21,7 +21,7 @@ export default function Card({
       setTimeout(() => setSelectedCard(card.id), 200);
     }
     setClicked(true);
-    setTimeout(() => setClicked(false), 280);
+    setTimeout(() => setClicked(false), 300);
   }
 
   return (
