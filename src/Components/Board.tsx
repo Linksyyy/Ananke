@@ -40,17 +40,27 @@ export default function Board() {
           Math.max(Math.abs(hex.q), Math.abs(hex.r), Math.abs(hex.s)) == radius;
 
         let fillClass =
-          "fill-boardInnerRing hover:fill-purple-950 stroke-purple-950";
+          "fill-boardInnerRing stroke-purple-900 " +
+          "drop-shadow-[0_0_6px_rgba(80,50,150,0.3)] " +
+          "hover:scale-110 hover:drop-shadow-[0_0px_6px_rgba(140,90,220,0.5)]";
+
         if (isEdge)
           fillClass =
-            "fill-boardEdge hover:fill-neutral-800 stroke-neutral-800";
+            "fill-boardEdge stroke-neutral-800 " +
+            "drop-shadow-[0_0px_4px_rgba(0,0,0,0.9)] " +
+            "hover:fill-neutral-800 hover:scale-105";
+
         if (isCenter)
-          fillClass = "fill-boardCenter hover:fill-red-900 stroke-red950";
+          fillClass =
+            "fill-boardCenter stroke-red-900 " +
+            "drop-shadow-[0_0_4px_rgba(200,40,80,0.7)] " +
+            "hover:scale-115 hover:drop-shadow-[0_0px_6px_rgba(220,60,100,0.9)]";
 
         return (
           <g
             key={`${hex.q}-${hex.r}`}
             transform={`translate(${hex.x}, ${hex.y})`}
+            className="group"
             onMouseEnter={(e) => {
               const target = e.currentTarget;
               target.parentNode?.appendChild(target);
@@ -61,13 +71,13 @@ export default function Board() {
               className={`scale-90 transition-transform transition-color duration-200 ease-in-out hover:scale-110 ${fillClass}`}
               strokeWidth="2"
             />
-            <text
-              className="fill-red-200 text-[8px] pointer-events-none"
-              textAnchor="middle"
-              dy="4"
-            >
-              {hex.q},{hex.r},{hex.s}
-            </text>
+            <circle
+              cx="0"
+              cy="0"
+              r="10"
+              z={200}
+              className="fill-neutral-400/10 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none"
+            />
           </g>
         );
       })}
