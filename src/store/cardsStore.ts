@@ -19,8 +19,17 @@ const useCards = create<tCardsStore>(
       setSelectedCard: (cardIndex: number) => {
         set((state) => {
           const card = state.cards[cardIndex];
+
+          if (state.selectedCard) {
+            const newCards = [...state.cards, state.selectedCard];
+            return {
+              cards: newCards.filter((_, i) => i !== cardIndex),
+              selectedCard: card,
+            };
+          }
+
           return {
-            cards: state.cards.filter((p, i) => i !== cardIndex),
+            cards: state.cards.filter((_, i) => i !== cardIndex),
             selectedCard: card,
           };
         });

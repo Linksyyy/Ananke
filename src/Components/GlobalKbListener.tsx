@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useCards } from '../store/cardsStore';
+import { useEffect } from "react";
+import { useCards } from "../store/cardsStore";
 
 export default function GlobalKbListener() {
   const { selectedCard, unsetSelectedCard, setSelectedCard } = useCards();
@@ -8,23 +8,16 @@ export default function GlobalKbListener() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (/^[1-9]$/.test(e.key)) {
         const targetIndex = Number(e.key) - 1;
-
-        if (selectedCard !== null) {
-          unsetSelectedCard();
-          setTimeout(() => setSelectedCard(targetIndex), 200);
-        } else {
-          setTimeout(() => setSelectedCard(targetIndex), 50);
-        }
+        setSelectedCard(targetIndex);
       }
 
-      if(e.key.toLowerCase() === 'x') {
-        unsetSelectedCard()
+      if (e.key.toLowerCase() === "x") {
+        unsetSelectedCard();
       }
     };
 
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedCard, setSelectedCard, unsetSelectedCard]);
 
   return null;

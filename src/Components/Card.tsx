@@ -12,16 +12,11 @@ export default function Card({
   isHovered: boolean;
   index: number;
 }) {
-  const { selectedCard, setSelectedCard, unsetSelectedCard } = useCards();
+  const { setSelectedCard } = useCards();
   const [clicked, setClicked] = useState(false);
 
   function handleClick(index: number) {
-    if (selectedCard) {
-      setTimeout(() => unsetSelectedCard(), 100);
-      setTimeout(() => setSelectedCard(index), 300);
-    } else {
-      setTimeout(() => setSelectedCard(index), 200);
-    }
+    setSelectedCard(index);
     setClicked(true);
     setTimeout(() => setClicked(false), 300);
   }

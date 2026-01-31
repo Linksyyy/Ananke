@@ -1,10 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useCards } from "../store/cardsStore";
 
 export default function ExtendedCard() {
   const { selectedCard, unsetSelectedCard } = useCards();
-  const isActive = Boolean(selectedCard);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(false);
+    setTimeout(() => setIsActive(true), 100);
+
+    return () => setIsActive(false)
+  }, [selectedCard]);
 
   return (
     <div
