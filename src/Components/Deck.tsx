@@ -41,7 +41,7 @@ export default function Cards() {
                 zIndex: index,
               }}
             >
-              <Card card={card} isHovered={isHovered} />
+              <Card card={card} isHovered={isHovered} index={index} />
             </div>
           );
         })}

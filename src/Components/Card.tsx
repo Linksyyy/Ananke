@@ -6,19 +6,21 @@ import { useCards } from "../store/cardsStore";
 export default function Card({
   card,
   isHovered,
+  index,
 }: {
   card: Card;
   isHovered: boolean;
+  index: number;
 }) {
   const { selectedCard, setSelectedCard, unsetSelectedCard } = useCards();
   const [clicked, setClicked] = useState(false);
 
-  function handleClick() {
+  function handleClick(index: number) {
     if (selectedCard) {
       setTimeout(() => unsetSelectedCard(), 100);
-      setTimeout(() => setSelectedCard(card.id), 300);
+      setTimeout(() => setSelectedCard(index), 300);
     } else {
-      setTimeout(() => setSelectedCard(card.id), 200);
+      setTimeout(() => setSelectedCard(index), 200);
     }
     setClicked(true);
     setTimeout(() => setClicked(false), 300);
@@ -27,7 +29,7 @@ export default function Card({
   return (
     <div
       className={`group h-72 w-48 rounded-2xl p-2 ${clicked ? "-translate-y-100 opacity-10 scale-150 transition-all duration-350" : ""}`}
-      onClick={handleClick}
+      onClick={() => handleClick(index)}
     >
       <div
         className={`absolute inset-0 rounded-2xl transition-opacity ${
@@ -43,9 +45,12 @@ export default function Card({
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] bg-size-[6px_6px] opacity-20 pointer-events-none" />
 
         <div className="relative px-3 pt-2">
-          <h3 className="text-sm font-semibold tracking-wide text-neutral-100">
-            {card.name}
-          </h3>
+          <div className="flex gap-2 items-center">
+            <h4 className="font-thin text-sm text-neutral-600">{index + 1}</h4>
+            <h3 className="text-sm font-semibold tracking-wide text-neutral-100">
+              {card.name}
+            </h3>
+          </div>
           <div className="text-[10px] text-neutral-400 italic">
             {card.principle.toUpperCase()}
           </div>

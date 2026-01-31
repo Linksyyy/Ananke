@@ -4,7 +4,7 @@ interface tCardsStore {
   cards: Card[];
   selectedCard: Card | null;
   setCards: (arrCards: Card[]) => void;
-  setSelectedCard: (cardId: string) => void;
+  setSelectedCard: (cardIndex: number) => void;
   unsetSelectedCard: () => void;
 }
 
@@ -16,11 +16,11 @@ const useCards = create<tCardsStore>(
 
       setCards: (arrCards: Card[]) => set({ cards: arrCards }),
 
-      setSelectedCard: (cardId: string) => {
+      setSelectedCard: (cardIndex: number) => {
         set((state) => {
-          const card = state.cards.filter((p) => cardId === p.id)[0]
+          const card = state.cards[cardIndex];
           return {
-            cards: state.cards.filter((p) => cardId !== p.id),
+            cards: state.cards.filter((p, i) => i !== cardIndex),
             selectedCard: card,
           };
         });
@@ -31,13 +31,8 @@ const useCards = create<tCardsStore>(
           if (state.selectedCard) {
             return {
               cards: [...state.cards, state.selectedCard],
+              selectedCard: null,
             };
-          }
-          return {};
-        });
-        set((state) => {
-          if (state.selectedCard) {
-            return { selectedCard: null };
           }
           return {};
         });

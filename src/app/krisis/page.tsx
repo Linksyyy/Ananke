@@ -1,10 +1,14 @@
+"use client";
+
 import Board from "@/src/Components/Board";
 import Deck from "@/src/Components/Deck";
 import ExtendedCard from "@/src/Components/ExtendedCard";
+import GlobalKbListener from "@/src/Components/GlobalKbListener";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen w-full flex-col px-16">
+      <GlobalKbListener />
       <div className="flex justify-center min-h-screen">
         <div className="flex justify-center w-full mb-10">
           <Board />
