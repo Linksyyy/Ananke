@@ -1,7 +1,5 @@
 import type { NextConfig } from "@/node_modules/next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

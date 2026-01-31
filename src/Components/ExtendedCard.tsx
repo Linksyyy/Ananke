@@ -88,8 +88,8 @@ export default function ExtendedCard() {
                   <span
                     className={
                       selectedCard.constraints.unique
-                        ? "text-red-400"
-                        : "text-green-400"
+                        ? "text-green-400"
+                        : "text-red-400"
                     }
                   >
                     {String(selectedCard.constraints.unique)}
@@ -100,8 +100,8 @@ export default function ExtendedCard() {
                   <span
                     className={
                       selectedCard.constraints.irreversible
-                        ? "text-red-400"
-                        : "text-green-400"
+                        ? "text-green-400"
+                        : "text-red-400"
                     }
                   >
                     {String(selectedCard.constraints.irreversible)}
