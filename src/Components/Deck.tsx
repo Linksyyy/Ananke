@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Card from "./Card";
-import { useCards } from "@/src/store/cardsStore";
+import { useCards } from "@/store/cardsStore";
 
 export default function Cards() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

@@ -1,10 +1,10 @@
 "use client";
 
-import Board from "@/src/Components/Board";
-import Deck from "@/src/Components/Deck";
-import ExtendedCard from "@/src/Components/ExtendedCard";
-import GlobalKbListener from "@/src/Components/GlobalKbListener";
-import { useCards } from "@/src/store/cardsStore";
+import Board from "@/Components/Board";
+import Deck from "@/Components/Deck";
+import ExtendedCard from "@/Components/ExtendedCard";
+import GlobalKbListener from "@/Components/GlobalKbListener";
+import { useCards } from "@/store/cardsStore";
 import { useEffect } from "react";
 
 export default function KrisisPageClient({ cards }: { cards: Card[] }) {
