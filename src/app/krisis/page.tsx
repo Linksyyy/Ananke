@@ -1,15 +1,10 @@
 import KrisisPageClient from "./KrisisPageClient";
-
-async function getCards() {
-  const res = await fetch("/api/cards", {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data.cards;
-}
+import { getApiUrl } from "@/lib/utils";
 
 export default async function KrisisPage() {
-  const cards = await getCards();
+  const { cards } = await fetch(getApiUrl("/api/cards")).then((res) =>
+    res.json()
+  );
 
   return <KrisisPageClient cards={cards} />;
 }
