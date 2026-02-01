@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useCards } from "../store/cardsStore";
+import { socket } from "@/lib/socket";
+
+function handleHexClick(hex: Hex) {
+  socket.emit("move", hex);
+}
 
 export default function Board() {
   const { selectedCard } = useCards();
@@ -73,13 +78,14 @@ export default function Board() {
                 const target = e.currentTarget;
                 target.parentNode?.appendChild(target);
               }}
-              onClick={() => console.log(hex)}
+              onClick={() => handleHexClick(hex)}
               style={{
                 opacity: mounted ? 1 : 0,
-                transform: mounted 
-                  ? `translate(${hex.x}px, ${hex.y}px) scale(1)` 
+                transform: mounted
+                  ? `translate(${hex.x}px, ${hex.y}px) scale(1)`
                   : `translate(${hex.x}px, ${hex.y}px) scale(0) translateY(20px)`,
-                transition: "opacity 500ms ease-out, transform 700ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                transition:
+                  "opacity 500ms ease-out, transform 700ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                 transitionDelay: `${hex.distance * 80}ms`,
               }}
             >

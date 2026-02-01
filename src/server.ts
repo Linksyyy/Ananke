@@ -1,25 +1,20 @@
 import { createServer } from "http";
 import next from "next";
+import { Server } from "socket.io";
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();
 
 app.prepare().then(async () => {
-  const server = createServer((req, res) => {
-    const start = Date.now();
+  const server = createServer((req, res) => handle(req, res));
 
-    res.on("finish", () => {
-      const duration = Date.now() - start;
-      const { method, url } = req;
-      const status = res.statusCode;
-      const color = status >= 400 ? "\x1b[31m" : "\x1b[32m";
+  const io = new Server(server);
 
-      console.log(
-        `[${method} | ${color}${status}\x1b[0m] ${duration}ms | ${url}`,
-      );
+  io.on("connection", (socket) => {
+    console.log(socket)
+    socket.on("move", (hex: Hex) => {
+      console.log(hex.q, hex.r, hex.s);
     });
-
-    handle(req, res);
   });
 
   server.listen(3000, () => {

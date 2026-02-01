@@ -71,3 +71,12 @@ interface Card {
 
   constraints: CardConstraints;
 }
+
+interface Hex {
+  q: number;
+  r: number;
+  s: number;
+  x: number;
+  y: number;
+  distance: number;
+}

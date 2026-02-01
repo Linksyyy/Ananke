@@ -1,10 +1,8 @@
+import { getCards } from "@/lib/api";
 import KrisisPageClient from "./KrisisPageClient";
-import { getApiUrl } from "@/lib/utils";
 
 export default async function KrisisPage() {
-  const { cards } = await fetch(getApiUrl("/api/cards")).then((res) =>
-    res.json()
-  );
+  const cards = await getCards();
 
   return <KrisisPageClient cards={cards} />;
 }
