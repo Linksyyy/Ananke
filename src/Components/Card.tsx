@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCards } from "../store/cardsStore";
 
 export default function Card({
@@ -30,10 +30,6 @@ export default function Card({
         className={`absolute inset-0 rounded-2xl transition-opacity ${
           isHovered ? "opacity-10 blur-md" : "opacity-10"
         }`}
-        style={{
-          background: `radial-gradient(circle at top,
-            ${card.color}606, transparent 70%)`,
-        }}
       />
 
       <div className="absolute inset-0 rounded-2xl bg-neutral-950 border border-neutral-800 shadow-xl overflow-hidden flex flex-col">
