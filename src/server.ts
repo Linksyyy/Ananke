@@ -11,9 +11,8 @@ app.prepare().then(async () => {
   const io = new Server(server);
 
   io.on("connection", (socket) => {
-    console.log(socket)
-    socket.on("move", (hex: Hex) => {
-      console.log(hex.q, hex.r, hex.s);
+    socket.on("movePiece", (hex: Hex, card: Card) => {
+      socket.emit("boardUpdate", hex, card);
     });
   });
 

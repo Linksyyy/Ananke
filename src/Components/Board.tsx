@@ -2,15 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { useCards } from "../store/cardsStore";
-import { socket } from "@/lib/socket";
+import { socket, useSocket } from "@/lib/socket";
 
-function handleHexClick(hex: Hex) {
-  socket.emit("move", hex);
+function getHexKey(hex: Hex) {
+  return `${hex.q},${hex.r},${hex.s}`;
 }
 
 export default function Board() {
   const { selectedCard } = useCards();
   const [mounted, setMounted] = useState(false);
+  const [piecesOnBoard, setPiecesOnBoard] = useState<Map<string, Card>>(
+    new Map(),
+  );
+
+  function handleHexClick(hex: Hex) {
+    if (selectedCard) socket.emit("movePiece", hex, selectedCard);
+  }
+
+  useSocket("boardUpdate", (hex: Hex, card: Card) => {
+    setPiecesOnBoard((prevPieces) => {
+      const newPieces = new Map(prevPieces);
+      newPieces.set(getHexKey(hex), card);
+      return newPieces;
+    });
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -52,6 +67,7 @@ export default function Board() {
         {hexes.map((hex) => {
           const isCenter = hex.distance <= 1;
           const isEdge = hex.distance === radius;
+          const piece = piecesOnBoard.get(getHexKey(hex));
 
           let fillClass =
             "fill-boardInnerRing stroke-purple-900 " +
@@ -101,6 +117,9 @@ export default function Board() {
               >
                 {hex.q}q, {hex.r}r1, {hex.s}s
               </text>
+              {piece && (
+                <circle cx="0" cy="0" r="10" className="fill-red-600" />
+              )}
               <circle
                 cx="0"
                 cy="0"
