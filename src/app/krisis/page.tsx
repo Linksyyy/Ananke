@@ -1,7 +1,7 @@
 import KrisisPageClient from "./KrisisPageClient";
 
 async function getCards() {
-  const res = await fetch("http://localhost:3000/api/cards", {
+  const res = await fetch("/api/cards", {
     cache: "no-store",
   });
   const data = await res.json();
