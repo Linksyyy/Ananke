@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCards } from "../store/cardsStore";
+import Image from "next/image"
 
 export default function Card({
   card,
@@ -64,8 +65,9 @@ export default function Card({
         </div>
 
         <div className="relative flex-1 flex items-center justify-center px-2">
-          <img
-            src={`${card.name.toLowerCase().replaceAll(" ", "-")}.png`}
+          <Image
+            src={`/${card.name.toLowerCase().replaceAll(" ", "-")}.png`}
+            fill
             alt={card.name}
             className={`max-h-full object-contain transition-transform duration-300 ${
               isHovered ? "scale-90" : ""
