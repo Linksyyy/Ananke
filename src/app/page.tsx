@@ -5,17 +5,14 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-neutral-200">
-      {/* Background aura */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-1/3 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-purple-900/30 blur-[180px]" />
         <div className="absolute bottom-[-20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-red-900/20 blur-[200px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_60%)]" />
       </div>
 
-      {/* Grain */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.15] mix-blend-overlay bg-[url('/noise.png')]" />
 
-      {/* Content */}
       <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
         <h1 className="mb-4 text-5xl font-semibold tracking-wide text-neutral-100 md:text-7xl">
           Ἀνάγκη

@@ -4,8 +4,20 @@ import Board from "@/src/Components/Board";
 import Deck from "@/src/Components/Deck";
 import ExtendedCard from "@/src/Components/ExtendedCard";
 import GlobalKbListener from "@/src/Components/GlobalKbListener";
+import { useCards } from "@/src/store/cardsStore";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { setCards } = useCards();
+
+  useEffect(() => {
+    fetch("/api/cards")
+      .then((res) => res.json())
+      .then((res) => {
+        setCards(res.cards);
+      });
+  }, []);
+
   return (
     <main className="flex min-h-screen w-full flex-col px-16">
       <GlobalKbListener />

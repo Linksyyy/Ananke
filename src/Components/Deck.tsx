@@ -1,17 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import cardsTest from "@/src/util/cards";
 import Card from "./Card";
 import { useCards } from "@/src/store/cardsStore";
 
 export default function Cards() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const { cards, setCards } = useCards();
+  const { cards } = useCards();
 
   useEffect(() => {
-    setCards(cardsTest);
     setTimeout(() => setLoaded(true), 300);
   }, []);
 
