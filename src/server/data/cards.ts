@@ -1,7 +1,7 @@
 const cards: Card[] = [
   {
     id: "1",
-    name: "Paradox Incarnate",
+    name: "Antinomy",
     color: "#8b1e3f",
     principle: "rupture",
     domain: {
@@ -28,7 +28,7 @@ const cards: Card[] = [
   },
   {
     id: "2",
-    name: "Veiled Hypercube",
+    name: "Tesseract",
     color: "#2e3a87",
     principle: "structure",
     domain: {
@@ -51,7 +51,7 @@ const cards: Card[] = [
   },
   {
     id: "3",
-    name: "Axis of Negation",
+    name: "Null",
     color: "#111111",
     principle: "negation",
     domain: {
@@ -74,7 +74,7 @@ const cards: Card[] = [
   },
   {
     id: "4",
-    name: "Erosive Continuum",
+    name: "Attrition",
     color: "#6b705c",
     principle: "erosion",
     domain: {
@@ -101,7 +101,7 @@ const cards: Card[] = [
   },
   {
     id: "5",
-    name: "Structured Presence",
+    name: "Lattice",
     color: "#1e1e1e",
     principle: "structure",
     domain: {
@@ -128,7 +128,7 @@ const cards: Card[] = [
   },
   {
     id: "6",
-    name: "Fracture Witness",
+    name: "Schism",
     color: "#8a7a52",
     principle: "rupture",
     domain: {
@@ -155,7 +155,7 @@ const cards: Card[] = [
   },
   {
     id: "7",
-    name: "Verdant Bastion",
+    name: "Telluric",
     color: "#3a5f3a",
     principle: "structure",
     domain: {
@@ -178,7 +178,7 @@ const cards: Card[] = [
   },
   {
     id: "8",
-    name: "Crimson Worldroot",
+    name: "Rubra",
     color: "#b11226",
     principle: "potential",
     domain: {
