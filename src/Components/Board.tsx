@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useCards } from "../store/cardsStore";
 import { socket, useSocket } from "@/lib/socket";
+import Piece from "./Piece";
 
 function getHexKey(hex: Hex) {
   return `${hex.q},${hex.r},${hex.s}`;
@@ -117,9 +118,7 @@ export default function Board() {
               >
                 {hex.q}q, {hex.r}r1, {hex.s}s
               </text>
-              {piece && (
-                <circle cx="0" cy="0" r="10" className="fill-red-600" />
-              )}
+              {piece && <Piece card={piece} />}
               <circle
                 cx="0"
                 cy="0"
