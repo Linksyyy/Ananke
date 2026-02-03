@@ -32,7 +32,7 @@ export const FormInput = ({
 export const FormButton = ({ children }: { children: React.ReactNode }) => (
   <button
     type="submit"
-    className="w-full flex justify-center py-3 px-4 border border-purple-700 rounded-md shadow-sm text-base font-medium text-purple-400 bg-purple-900/20 hover:bg-purple-900/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-purple-500 transition-colors duration-300"
+    className="w-full flex justify-center py-3 px-4 border border-purple-700 rounded-md shadow-sm text-base font-medium text-purple-400 bg-purple-900/20 hover:bg-purple-900/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-purple-500 transition-colors duration-200 cursor-pointer"
   >
     {children}
   </button>

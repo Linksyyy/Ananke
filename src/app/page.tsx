@@ -1,8 +1,13 @@
 "use client";
 
+import { redirect } from "next/navigation";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-neutral-200">
       <div className="pointer-events-none absolute inset-0">
@@ -14,36 +19,45 @@ export default function Home() {
       <div className="pointer-events-none absolute inset-0 opacity-[0.15] mix-blend-overlay bg-[url('/noise.png')]" />
 
       <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
-        <h1 className="mb-4 text-5xl font-semibold tracking-wide text-neutral-100 md:text-7xl">
+        <h1
+          className={`mb-4 text-5xl font-semibold tracking-wide text-neutral-100
+            transition-all duration-400 ${mounted ? "md:text-7xl opacity-100" : "text-xl opacity-0"}`}
+        >
           Ἀνάγκη
         </h1>
 
-        <p className="mb-10 max-w-xl text-sm leading-relaxed text-neutral-400 md:text-base">
-          A tactical board game about pressure, positioning,  
-          and the cost of occupying space.
+        <p
+          className={`mb-10 max-w-xl text-sm leading-relaxed text-neutral-400
+           transition-all duration-400 ${mounted ? "md:text-base opacity-100" : "opacity-0 text-sm"}`}
+        >
+          A tactical board game about pressure, positioning, and the cost of
+          occupying space.
         </p>
 
-        <div className="mb-10 h-px w-48 bg-linear-to-r from-transparent via-purple-700/60 to-transparent" />
+        <div
+          className={`mb-10 h-px w-48 bg-linear-to-r from-transparent via-purple-700/60 to-transparent transition-all duration-400
+          ${mounted ? "opacity-100" : "opacity-0"}`}
+        />
 
         <div className="flex gap-6">
-          <Link
-            href="/krisis"
-            className="group relative overflow-hidden rounded-lg border border-purple-800/60 px-8 py-3 text-sm font-medium tracking-wide text-purple-200 transition-all hover:border-purple-500"
+          <button
+            onClick={() => redirect("/krisis")}
+            className={`group relative overflow-hidden rounded-lg border border-purple-800/60 px-8 py-3 text-sm font-medium tracking-wide text-purple-200 hover:border-purple-500
+              transition-all duration-400 ${mounted ? "opacity-100" : "opacity-0"}`}
           >
             <span className="relative z-10">Enter Conflict</span>
             <span className="absolute inset-0 -translate-x-full bg-purple-800/20 transition-transform duration-500 group-hover:translate-x-0" />
-          </Link>
+          </button>
 
-          <button
-            className="rounded-lg border border-neutral-700/60 px-8 py-3 text-sm tracking-wide text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-200"
-          >
+          <button className={`rounded-lg border border-neutral-700/60 px-8 py-3 text-sm tracking-wide text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-200
+            transition-all duration-400 ${mounted ? "opacity-100" : "opacity-0"}`}>
             Observe
           </button>
         </div>
       </section>
 
       <footer className="absolute bottom-4 w-full text-center text-[10px] tracking-widest text-neutral-600">
-        inevitability • control • structure
+        made by linksyyy - work in progress
       </footer>
     </main>
   );
