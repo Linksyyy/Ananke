@@ -6,6 +6,8 @@ import {
   FormInput,
   FormButton,
 } from "@/Components/AuthForm";
+import Link from "next/link";
+import PersonalizedLink from "@/Components/PersonalizedLink";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -36,6 +38,8 @@ export default function Login() {
           <FormButton>Confirm</FormButton>
         </div>
       </form>
+
+      <PersonalizedLink path="/register" text="Dont have any account? Click here!"/>
     </AuthFormContainer>
   );
 }

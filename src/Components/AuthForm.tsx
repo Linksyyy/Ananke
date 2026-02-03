@@ -1,8 +1,23 @@
 "use client";
 
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
-export const FormInput = ({ id, type, placeholder, value, onChange }: { id: string; type: string; placeholder: string; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; }) => (
+export const FormInput = ({
+  id,
+  type,
+  placeholder,
+  value,
+  onChange,
+}: {
+  id: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) => (
   <input
     id={id}
     type={type}
@@ -23,11 +38,27 @@ export const FormButton = ({ children }: { children: React.ReactNode }) => (
   </button>
 );
 
-export const AuthFormContainer = ({ children, title }: { children: React.ReactNode, title: string }) => (
-  <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background text-foreground p-4">
+export const AuthFormContainer = ({
+  children,
+  title,
+}: {
+  children: React.ReactNode;
+  title: string;
+}) => (
+  <main className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4">
     <div className="w-full max-w-md">
       <div className="flex flex-col justify-center p-8 rounded-lg border border-neutral-800 bg-neutral-900/50">
-        <h2 className="text-3xl font-light text-center text-white mb-8 pointer-events-none select-none">{title}</h2>
+        <div>
+          <button
+            onClick={() => redirect("/")}
+            className="hover:text-neutral-500 cursor-pointer p-2"
+          >
+            <FaArrowLeft size={20} />
+          </button>
+        </div>
+        <h2 className="text-3xl font-light text-center text-white mb-8 pointer-events-none select-none">
+          {title}
+        </h2>
         {children}
       </div>
     </div>

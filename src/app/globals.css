@@ -9,6 +9,8 @@
   --color-boardEdge: #1a1a1a;
   --color-boardInnerRing: #301934;
   --color-boardCenter: #600030;
+  --color-link: #8b5cf6;
+  --color-linkHover: #4b0082;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -6,6 +6,7 @@ import {
   FormInput,
   FormButton,
 } from "@/Components/AuthForm";
+import PersonalizedLink from "@/Components/PersonalizedLink";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -52,6 +53,10 @@ export default function Register() {
           <FormButton>Criar Conta</FormButton>
         </div>
       </form>
+      <PersonalizedLink
+        path="/login"
+        text="Already have a account? Click here!"
+      />
     </AuthFormContainer>
   );
 }
