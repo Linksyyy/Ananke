@@ -12,6 +12,8 @@ app.prepare().then(async () => {
 
   io.on("connection", (socket) => {
     socket.on("movePiece", (hex: Hex, card: Card) => {
+      if (hex.q + hex.r + hex.s !== 0) return;
+      if (Math.max(hex.q, hex.r, hex.s) > 5) return;
       socket.emit("boardUpdate", hex, card);
     });
   });
