@@ -8,19 +8,22 @@ import {
 } from "@/Components/AuthForm";
 import Link from "next/link";
 import PersonalizedLink from "@/Components/PersonalizedLink";
+import { redirect } from "next/navigation";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     fetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ username, password }),
+    }).then((res) => {
+      redirect("/krisis");
     });
-  };
+  }
 
   return (
     <AuthFormContainer title="Enter">
@@ -40,7 +43,9 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="pt-2">
-          <FormButton disabled={!username || (password.length < 4)}>Confirm</FormButton>
+          <FormButton disabled={!username || password.length < 4}>
+            Confirm
+          </FormButton>
         </div>
       </form>
 

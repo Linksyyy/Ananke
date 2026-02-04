@@ -7,6 +7,7 @@ import {
   FormButton,
 } from "@/Components/AuthForm";
 import PersonalizedLink from "@/Components/PersonalizedLink";
+import { redirect } from "next/navigation";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -19,6 +20,8 @@ export default function Register() {
     fetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({ username, email, password }),
+    }).then((res) => {
+      redirect("/login");
     });
   };
 

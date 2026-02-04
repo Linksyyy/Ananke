@@ -28,3 +28,7 @@ export default async function middlewate(req: NextRequest) {
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|login).*)"],
+};
