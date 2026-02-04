@@ -6,7 +6,6 @@ import {
   FormInput,
   FormButton,
 } from "@/Components/AuthForm";
-import Link from "next/link";
 import PersonalizedLink from "@/Components/PersonalizedLink";
 import { redirect } from "next/navigation";
 import { useUser } from "@/store/userStore";
@@ -26,6 +25,8 @@ export default function Login() {
       .then((res) => res.json())
       .then((res) => {
         setUser(res.user);
+        localStorage.clear()
+        localStorage.setItem("user-cache", JSON.stringify(res.user));
         redirect("/krisis");
       });
   }
