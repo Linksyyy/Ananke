@@ -1,7 +1,7 @@
 import { useUser } from "@/store/userStore";
 import { useState } from "react";
 
-export default function SessionSummoner() {
+export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
   const [friendUsername, setFriendUsername] = useState("");
 
@@ -10,7 +10,10 @@ export default function SessionSummoner() {
   };
 
   return (
-    <div className="absolute left-5 flex justify-center items-center w-100 h-7/10 my-20 bg-neutral-900 mx-10 rounded-4xl shadow-2xl overflow-hidden">
+    <div
+      className={`absolute flex justify-center items-center w-100 h-7/10 my-20 bg-neutral-900 mx-10 rounded-4xl shadow-2xl overflow-hidden
+    transition-all ease-in-out duration-300 ${hide ? "left-5" : "-left-120"}`}
+    >
       <div className="relative bg-neutral-950 flex flex-col w-[92%] h-[95%] rounded-3xl p-6 text-neutral-200">
         <h2 className="text-2xl font-bold mb-4">Summoner Session</h2>
 
