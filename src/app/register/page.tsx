@@ -14,8 +14,12 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
+    fetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ username, email, password }),
+    });
   };
 
   return (
@@ -50,7 +54,11 @@ export default function Register() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <div className="pt-2">
-          <FormButton>Criar Conta</FormButton>
+          <FormButton
+            disabled={password !== confirmPassword || !username || !email}
+          >
+            Register
+          </FormButton>
         </div>
       </form>
       <PersonalizedLink

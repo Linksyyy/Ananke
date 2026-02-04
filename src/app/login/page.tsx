@@ -10,22 +10,27 @@ import Link from "next/link";
 import PersonalizedLink from "@/Components/PersonalizedLink";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    fetch("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+    });
   };
 
   return (
     <AuthFormContainer title="Enter">
       <form onSubmit={handleSubmit} className="space-y-6">
         <FormInput
-          id="login-email"
-          type="email"
+          id="login-username"
+          type="text"
           placeholder="Username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <FormInput
           id="login-password"
@@ -35,11 +40,14 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="pt-2">
-          <FormButton>Confirm</FormButton>
+          <FormButton disabled={!username || (password.length < 4)}>Confirm</FormButton>
         </div>
       </form>
 
-      <PersonalizedLink path="/register" text="Dont have any account? Click here!"/>
+      <PersonalizedLink
+        path="/register"
+        text="Dont have any account? Click here!"
+      />
     </AuthFormContainer>
   );
 }

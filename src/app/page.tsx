@@ -49,7 +49,7 @@ export default function Home() {
             <span className="absolute inset-0 -translate-x-full bg-purple-800/20 transition-transform duration-500 group-hover:translate-x-0" />
           </button>
 
-          <button className={`rounded-lg border border-neutral-700/60 px-8 py-3 text-sm tracking-wide text-neutral-400 transition hover:border-neutral-500 hover:text-neutral-200
+          <button className={`rounded-lg border border-neutral-700/60 px-8 py-3 text-sm tracking-wide text-neutral-400 hover:border-neutral-500 hover:text-neutral-200
             transition-all duration-400 ${mounted ? "opacity-100" : "opacity-0"}`}>
             Observe
           </button>
