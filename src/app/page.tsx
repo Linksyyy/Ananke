@@ -42,14 +42,14 @@ export default function Home() {
         <div className="flex gap-6">
           <button
             onClick={() => redirect("/krisis")}
-            className={`group relative overflow-hidden rounded-lg border border-purple-800/60 px-8 py-3 text-sm font-medium tracking-wide text-purple-200 hover:border-purple-500
+            className={`group relative overflow-hidden rounded-lg border border-purple-800/60 px-8 py-3 text-sm font-medium tracking-wide text-purple-200 hover:border-purple-500 cursor-pointer
               transition-all duration-400 ${mounted ? "opacity-100" : "opacity-0"}`}
           >
             <span className="relative z-10">Enter Conflict</span>
             <span className="absolute inset-0 -translate-x-full bg-purple-800/20 transition-transform duration-500 group-hover:translate-x-0" />
           </button>
 
-          <button className={`rounded-lg border border-neutral-700/60 px-8 py-3 text-sm tracking-wide text-neutral-400 hover:border-neutral-500 hover:text-neutral-200
+          <button className={`rounded-lg border border-neutral-700/60 px-8 py-3 text-sm tracking-wide text-neutral-400 hover:border-neutral-500 hover:text-neutral-200 cursor-pointer
             transition-all duration-400 ${mounted ? "opacity-100" : "opacity-0"}`}>
             Observe
           </button>

@@ -20,11 +20,10 @@ export default async function middlewate(req: NextRequest) {
   const token = req.cookies.get("auth-token")?.value;
 
   url.pathname = "/login";
-  if (privateRoutes.includes(pathname) && !token)
-    return NextResponse.redirect(url);
-
-  const isAuth = await verifyToken(token!);
-  if (!isAuth) return NextResponse.redirect(url);
+  if (privateRoutes.includes(pathname)) {
+    const isAuth = await verifyToken(token!);
+    if (!isAuth) return NextResponse.redirect(url);
+  }
 
   return NextResponse.next();
 }

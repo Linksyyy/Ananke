@@ -39,7 +39,7 @@ export default function Page() {
             hide ? setHide(false) : setHide(true);
           }}
         >
-          {hide ? <RiMenuUnfold2Line /> : <RiMenuUnfoldLine />}
+          {hide ? <RiMenuUnfoldLine /> : <RiMenuUnfold2Line />}
         </button>
         <Deck />
       </div>
