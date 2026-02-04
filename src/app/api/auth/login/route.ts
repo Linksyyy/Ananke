@@ -27,7 +27,14 @@ export async function POST(req: NextRequest) {
     );
 
   const response = NextResponse.json(
-    { message: "Login successful" },
+    {
+      message: "Login successful",
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+    },
     { status: 200 },
   );
   const secret = new TextEncoder().encode(process.env.JWT_SECRET!);

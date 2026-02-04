@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Board from "@/Components/Board";
 import ExtendedCard from "@/Components/ExtendedCard";
 import Deck from "@/Components/Deck";
+import SessionSummoner from "@/Components/SessionSummoner";
 
 export default function Page() {
   const { setCards } = useCards();
@@ -18,6 +19,7 @@ export default function Page() {
     <main className="flex min-h-screen w-full flex-col px-16">
       <GlobalKbListener />
       <div className="flex justify-center min-h-screen">
+        <SessionSummoner/>
         <div className="flex justify-center w-full mb-10">
           <Board />
         </div>

@@ -9,20 +9,25 @@ import {
 import Link from "next/link";
 import PersonalizedLink from "@/Components/PersonalizedLink";
 import { redirect } from "next/navigation";
+import { useUser } from "@/store/userStore";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUser();
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
     fetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ username, password }),
-    }).then((res) => {
-      redirect("/krisis");
-    });
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setUser(res.user);
+        redirect("/krisis");
+      });
   }
 
   return (
