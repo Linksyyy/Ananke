@@ -9,6 +9,7 @@ import Deck from "@/Components/Deck";
 import SessionSummoner from "@/Components/SessionSummoner";
 import { useUser } from "@/store/userStore";
 import { RiMenuUnfold2Line, RiMenuUnfoldLine } from "react-icons/ri";
+import Feedback from "@/Components/Feedback";
 
 export default function Page() {
   const [hide, setHide] = useState(true);
@@ -26,6 +27,7 @@ export default function Page() {
 
   return (
     <main className="flex min-h-screen w-full flex-col px-16">
+      <Feedback/>
       <GlobalKbListener />
       <div className="flex justify-center min-h-screen">
         <SessionSummoner hide={hide} />

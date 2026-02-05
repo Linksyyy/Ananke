@@ -13,6 +13,11 @@ export async function POST(req: NextRequest) {
   const username = data.username.trim().toLowerCase();
   const password = data.password.trim();
   const user = await getUserByUsername(username);
+  const partialUser = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+  };
 
   if (username === "")
     return NextResponse.json(
@@ -29,16 +34,12 @@ export async function POST(req: NextRequest) {
   const response = NextResponse.json(
     {
       message: "Login successful",
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
+      user: partialUser,
     },
     { status: 200 },
   );
   const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
-  const token = await new SignJWT(user)
+  const token = await new SignJWT(partialUser)
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("30d")
     .sign(secret);

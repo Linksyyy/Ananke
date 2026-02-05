@@ -1,18 +1,26 @@
-import { socket } from "@/lib/socket";
+import { socket, useSocket } from "@/lib/socket";
 import { useUser } from "@/store/userStore";
-import { useState } from "react";
+import React, { useState } from "react";
 import Tabs from "./Tabs";
 
 export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
   const [friendUsername, setFriendUsername] = useState("");
+  const [friendRequest, setFriendRequest] = useState<string[]>([]);
 
-  const handleSendFriendRequest = async () => {
-    setFriendUsername("");
+  useSocket("friendship-receive", (senderUsername) => {
+    const newRequestList = friendRequest;
+    newRequestList.push(senderUsername);
+    setFriendRequest(newRequestList);
+  });
+
+  const handleSendFriendRequest = (e: React.SubmitEvent) => {
+    e.preventDefault();
 
     socket.emit("send-friend", friendUsername);
-  };
 
+    setFriendUsername("");
+  };
   const tabs = [
     {
       id: "send",
@@ -22,7 +30,7 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Send Friend Request</h3>
           </div>
-          <div className="flex gap-2 p-2">
+          <form onSubmit={handleSendFriendRequest} className="flex gap-2 p-2">
             <input
               type="text"
               placeholder="Friend's username"
@@ -31,12 +39,12 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
               onChange={(e) => setFriendUsername(e.target.value)}
             />
             <button
-              onClick={handleSendFriendRequest}
+              type="submit"
               className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-md font-medium cursor-pointer"
             >
               Send
             </button>
-          </div>
+          </form>
         </div>
       ),
     },
@@ -76,9 +84,11 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Friend Requests</h3>
           </div>
-          <p className="text-neutral-400">
-            (Friend requests will be implemented in the future)
-          </p>
+          {friendRequest.map((req, index) => (
+            <p key={index} className="text-neutral-400">
+              {req}
+            </p>
+          ))}
         </div>
       ),
     },

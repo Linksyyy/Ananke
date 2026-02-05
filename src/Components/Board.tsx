@@ -17,10 +17,10 @@ export default function Board() {
   );
 
   function handleHexClick(hex: Hex) {
-    if (selectedCard) socket.emit("movePiece", hex, selectedCard);
+    if (selectedCard) socket.emit("move-piece", hex, selectedCard);
   }
 
-  useSocket("boardUpdate", (hex: Hex, card: Card) => {
+  useSocket("board-update", (hex: Hex, card: Card) => {
     setPiecesOnBoard((prevPieces) => {
       const newPieces = new Map(prevPieces);
       newPieces.set(getHexKey(hex), card);
