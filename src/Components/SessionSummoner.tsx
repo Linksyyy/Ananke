@@ -1,5 +1,7 @@
+import { socket } from "@/lib/socket";
 import { useUser } from "@/store/userStore";
 import { useState } from "react";
+import Tabs from "./Tabs";
 
 export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
@@ -7,19 +9,20 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
 
   const handleSendFriendRequest = async () => {
     setFriendUsername("");
+
+    socket.emit("send-friend", friendUsername);
   };
 
-  return (
-    <div
-      className={`absolute flex justify-center items-center w-100 h-7/10 my-20 bg-neutral-900 mx-10 rounded-4xl shadow-2xl overflow-hidden
-    transition-all ease-in-out duration-300 ${hide ? "-left-120" : "left-5"}`}
-    >
-      <div className="relative bg-neutral-950 flex flex-col w-[92%] h-[95%] rounded-3xl p-6 text-neutral-200">
-        <h2 className="text-2xl font-bold mb-4">Summoner Session</h2>
-
-        <div className="mb-6 p-4 border border-neutral-700 rounded-lg">
-          <h3 className="text-xl font-semibold mb-3">Send Friend Request</h3>
-          <div className="flex gap-2">
+  const tabs = [
+    {
+      id: "send",
+      label: "Send",
+      content: (
+        <div className="border border-neutral-700 rounded-lg h-full">
+          <div className="flex w-full items-center justify-center pt-4">
+            <h3 className="text-xl font-semibold mb-3">Send Friend Request</h3>
+          </div>
+          <div className="flex gap-2 p-2">
             <input
               type="text"
               placeholder="Friend's username"
@@ -35,16 +38,64 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
             </button>
           </div>
         </div>
-
-        <div className="p-4 border border-neutral-700 rounded-lg grow">
-          <h3 className="text-xl font-semibold mb-3">Friend List</h3>
+      ),
+    },
+    {
+      id: "friends",
+      label: "Friends",
+      content: (
+        <div className="border border-neutral-700 rounded-lg h-full grow">
+          <div className="flex w-full items-center justify-center pt-4">
+            <h3 className="text-xl font-semibold mb-3">Friend List</h3>
+          </div>
           <p className="text-neutral-400">
             (Friend list will be implemented in the future)
           </p>
         </div>
+      ),
+    },
+    {
+      id: "sent",
+      label: "Sent",
+      content: (
+        <div className="border border-neutral-700 rounded-lg h-full grow">
+          <div className="flex w-full items-center justify-center pt-4">
+            <h3 className="text-xl font-semibold mb-3">Sent Invites</h3>
+          </div>
+          <p className="text-neutral-400">
+            (Sent invites will be implemented in the future)
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "requests",
+      label: "Requests",
+      content: (
+        <div className="border border-neutral-700 rounded-lg h-full grow">
+          <div className="flex w-full items-center justify-center pt-4">
+            <h3 className="text-xl font-semibold mb-3">Friend Requests</h3>
+          </div>
+          <p className="text-neutral-400">
+            (Friend requests will be implemented in the future)
+          </p>
+        </div>
+      ),
+    },
+  ];
 
+  return (
+    <div
+      className={`absolute flex justify-center items-center w-100 h-7/10 my-20 bg-neutral-900 mx-10 rounded-4xl shadow-2xl overflow-hidden
+    transition-all ease-in-out duration-300 ${hide ? "-left-120" : "left-5"}`}
+    >
+      <div className="relative bg-neutral-950 flex flex-col w-[92%] h-[95%] rounded-3xl p-6 text-neutral-200">
+        <h2 className="text-2xl font-bold mb-4">Summoner Session</h2>
+        <div className="grow">
+          <Tabs tabs={tabs} />
+        </div>
         {user?.username && (
-          <p className="mt-4 text-sm text-neutral-500">
+          <p className="mt-4 text-sm text-neutral-500 self-end">
             Logged In User: {user.username}
           </p>
         )}
