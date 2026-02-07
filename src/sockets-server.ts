@@ -1,15 +1,42 @@
 import { DefaultEventsMap, Server } from "socket.io";
-import { createFriendship, getUserByUsername } from "./db/queries";
+import {
+  createFriendship,
+  getFriendshipOfUser,
+  getUserByUsername,
+} from "./db/queries";
 
 const socketsMap = new Map<string, string>();
+
+export interface user {
+  id: string;
+  username: string;
+  email: string;
+  bcrypted_password: string;
+}
+
+export interface initPayload {
+  friendshipRequest: user[];
+  friendshipSent: user[];
+  friends: user[];
+}
 
 export function socketServer(
   io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>,
 ) {
-  io.on("connection", (socket) => {
+  io.on("connection", async (socket) => {
     const user = (socket as any).user;
 
     socketsMap.set(user.id, socket.id);
+
+    const friendships = await getFriendshipOfUser(user.id);
+
+    socket.emit("init", {
+      friendshipRequest: friendships.map((f) => f.sender),
+      friendshipSent: friendships.map((f) => f.receiver),
+      friends: friendships
+        .filter((f) => f.status === "accepted")
+        .map((f) => (f.sender.id === user.id ? f.receiver : f.sender)),
+    } as initPayload);
 
     socket.on("send-friend", async (username) => {
       const friend = await getUserByUsername(String(username));

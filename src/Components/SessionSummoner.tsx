@@ -2,11 +2,20 @@ import { socket, useSocket } from "@/lib/socket";
 import { useUser } from "@/store/userStore";
 import React, { useState } from "react";
 import Tabs from "./Tabs";
+import { user, initPayload } from "@/sockets-server";
 
 export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
   const [friendUsername, setFriendUsername] = useState("");
-  const [friendRequest, setFriendRequest] = useState<string[]>([]);
+  const [friendRequest, setFriendRequest] = useState<user[]>([]);
+  const [friendSent, setFriendSent] = useState<user[]>([]);
+  const [friends, setFriends] = useState<user[]>([]);
+
+  useSocket("init", (payload: initPayload) => {
+    setFriendRequest(payload.friendshipRequest);
+    setFriendSent(payload.friendshipSent);
+    setFriends(payload.friends);
+  });
 
   useSocket("friendship-receive", (senderUsername) => {
     const newRequestList = friendRequest;
@@ -56,9 +65,11 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Friend List</h3>
           </div>
-          <p className="text-neutral-400">
-            (Friend list will be implemented in the future)
-          </p>
+          {friends.map((f, index) => (
+            <p key={index} className="text-neutral-400 px-5">
+              {f.username}
+            </p>
+          ))}
         </div>
       ),
     },
@@ -70,9 +81,11 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Sent Invites</h3>
           </div>
-          <p className="text-neutral-400">
-            (Sent invites will be implemented in the future)
-          </p>
+          {friendSent.map((f, index) => (
+            <p key={index} className="text-neutral-400 px-5">
+              {f.username}
+            </p>
+          ))}
         </div>
       ),
     },
@@ -84,9 +97,9 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Friend Requests</h3>
           </div>
-          {friendRequest.map((req, index) => (
-            <p key={index} className="text-neutral-400">
-              {req}
+          {friendRequest.map((f, index) => (
+            <p key={index} className="text-neutral-400 px-5">
+              {f.username}
             </p>
           ))}
         </div>
