@@ -21,7 +21,17 @@ export function socketServer(
         return;
       }
 
-      await createFriendship(user.id, friend.id);
+      const friendship = await createFriendship(user.id, friend.id);
+
+      if (friendship === undefined) {
+        socket.emit("feedback", {
+          message: "You can't send request to yourself",
+          isError: true,
+        });
+
+        return;
+      }
+
       socket.emit("feedback", { message: "Request sended!", isError: false });
       const friendSocketId = socketsMap.get(friend.id);
 

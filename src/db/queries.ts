@@ -28,6 +28,7 @@ export async function getUserByUsername(username: string) {
 }
 
 export async function createFriendship(user1Id: string, user2Id: string) {
+  if (user1Id === user2Id) return undefined;
   const id = genFriendshipId();
   return await db
     .insert(schema.friendshipTable)
