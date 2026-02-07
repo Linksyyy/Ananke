@@ -3,11 +3,10 @@ import next from "next";
 import * as cookie from "cookie";
 import { Server } from "socket.io";
 import { jwtVerify } from "jose";
-import { createFriendship, getUserByUsername } from "./db/queries";
+import { socketServer } from "./sockets-server";
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();
-const socketsMap = new Map<string, string>();
 
 app.prepare().then(async () => {
   const server = createServer((req, res) => handle(req, res));
@@ -29,35 +28,7 @@ app.prepare().then(async () => {
     next();
   });
 
-  io.on("connection", (socket) => {
-    const user = (socket as any).user;
-
-    socketsMap.set(user.id, socket.id);
-
-    socket.on("send-friend", async (username) => {
-      const friend = await getUserByUsername(String(username));
-      if (friend === undefined) {
-        socket.emit("feedback", {
-          message: "This user dont exists",
-          isError: true,
-        });
-        return;
-      }
-
-      await createFriendship(user.id, friend.id);
-      socket.emit("feedback", { message: "Request sended!", isError: false });
-      const friendSocketId = socketsMap.get(friend.id);
-
-      if (friendSocketId)
-        socket.to(friendSocketId).emit("friendship-receive", user.username);
-    });
-
-    socket.on("move-piece", (hex: Hex, card: Card) => {
-      if (hex.q + hex.r + hex.s !== 0) return;
-      if (Math.max(hex.q, hex.r, hex.s) > 5) return;
-      socket.emit("board-update", hex, card);
-    });
-  });
+  socketServer(io);
 
   server.listen(3000, () => {
     console.log("Server is now active");
