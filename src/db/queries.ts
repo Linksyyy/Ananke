@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import db from "./db";
 import * as schema from "./schema";
 import { customAlphabet } from "nanoid";
@@ -34,4 +34,21 @@ export async function createFriendship(user1Id: string, user2Id: string) {
     .insert(schema.friendshipTable)
     .values({ id, user_1: user1Id, user_2: user2Id, status: "pending" })
     .returning();
+}
+
+export async function getFriendshipOfUser(userId: string) {
+  return await db.query.friendshipTable.findMany({
+    where: or(
+      eq(schema.friendshipTable.user_1, userId),
+      eq(schema.friendshipTable.user_2, userId),
+    ),
+    columns: {
+      user_1: false,
+      user_2: false,
+    },
+    with: {
+      sender: true,
+      receiver: true,
+    },
+  });
 }

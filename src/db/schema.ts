@@ -1,4 +1,5 @@
 import { char, pgEnum, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 export const statusEnum = pgEnum("status", ["pending", "accepted"]);
 
@@ -24,3 +25,19 @@ export const friendshipTable = pgTable("friendship", {
   created_at: timestamp().defaultNow().notNull(),
   status: statusEnum().notNull(),
 });
+
+export const FriendshipRelation = relations(friendshipTable, ({ one }) => ({
+  sender: one(usersTable, {
+    fields: [friendshipTable.user_1],
+    references: [usersTable.id],
+  }),
+  receiver: one(usersTable, {
+    fields: [friendshipTable.user_2],
+    references: [usersTable.id],
+  }),
+}));
+
+export const usersRelations = relations(usersTable, ({ many }) => ({
+  friendshipsAsSender: many(friendshipTable),
+  friendshipsAsReceiver: many(friendshipTable),
+}));
