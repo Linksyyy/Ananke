@@ -1,11 +1,9 @@
-import { DefaultEventsMap, Server } from "socket.io";
+import { Server, DefaultEventsMap } from "socket.io";
 import {
   createFriendship,
   getFriendshipOfUser,
   getUserByUsername,
 } from "./db/queries";
-
-const socketsMap = new Map<string, string>();
 
 export interface user {
   id: string;
@@ -20,11 +18,47 @@ export interface initPayload {
   friends: user[];
 }
 
-export function socketServer(
-  io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>,
+export interface Hex {
+  q: number;
+  r: number;
+  s: number;
+}
+
+export interface Card {
+  id: string;
+  name: string;
+}
+
+export interface ServerToClientEvents {
+  init: (payload: initPayload) => void;
+  feedback: (data: { message: string; isError: boolean }) => void;
+  "friendship-receive": (username: string) => void;
+  "board-update": (hex: Hex, card: Card) => void;
+}
+
+export interface ClientToServerEvents {
+  "send-friend": (username: string) => void;
+  "move-piece": (hex: Hex, card: Card) => void;
+}
+
+export interface SocketData {
+  user: user;
+}
+
+const socketsMap = new Map<string, string>();
+
+export default function socketServer(
+  io: Server<
+    ClientToServerEvents,
+    ServerToClientEvents,
+    DefaultEventsMap,
+    SocketData
+  >,
 ) {
   io.on("connection", async (socket) => {
-    const user = (socket as any).user;
+    const user = socket.data.user;
+
+    if (!user) return;
 
     socketsMap.set(user.id, socket.id);
 
@@ -36,10 +70,11 @@ export function socketServer(
       friends: friendships
         .filter((f) => f.status === "accepted")
         .map((f) => (f.sender.id === user.id ? f.receiver : f.sender)),
-    } as initPayload);
+    });
 
-    socket.on("send-friend", async (username) => {
-      const friend = await getUserByUsername(String(username));
+    socket.on("send-friend", async (username: string) => {
+      const friend = await getUserByUsername(username);
+
       if (friend === undefined) {
         socket.emit("feedback", {
           message: "This user dont exists",
@@ -52,24 +87,30 @@ export function socketServer(
 
       if (friendship === undefined) {
         socket.emit("feedback", {
-          message: "You can't send request to yourself",
+          message: "You can t send request to yourself",
           isError: true,
         });
-
         return;
       }
 
       socket.emit("feedback", { message: "Request sended!", isError: false });
-      const friendSocketId = socketsMap.get(friend.id);
 
-      if (friendSocketId)
+      const friendSocketId = socketsMap.get(friend.id);
+      if (friendSocketId) {
         socket.to(friendSocketId).emit("friendship-receive", user.username);
+      }
     });
 
     socket.on("move-piece", (hex: Hex, card: Card) => {
       if (hex.q + hex.r + hex.s !== 0) return;
       if (Math.max(hex.q, hex.r, hex.s) > 5) return;
       socket.emit("board-update", hex, card);
+    });
+
+    socket.on("disconnect", () => {
+      if (user?.id) {
+        socketsMap.delete(user.id);
+      }
     });
   });
 }
