@@ -2,14 +2,20 @@ import { socket, useSocket } from "@/lib/socket";
 import { useUser } from "@/store/userStore";
 import React, { useState } from "react";
 import Tabs from "./Tabs";
-import { user, initPayload } from "@/sockets-server";
+import { initPayload } from "@/sockets-server";
+import { useFriends } from "@/store/friendsStore";
 
 export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
   const [friendUsername, setFriendUsername] = useState("");
-  const [friendRequest, setFriendRequest] = useState<user[]>([]);
-  const [friendSent, setFriendSent] = useState<user[]>([]);
-  const [friends, setFriends] = useState<user[]>([]);
+  const {
+    friends,
+    setFriends,
+    friendSent,
+    setFriendSent,
+    friendRequest,
+    setFriendRequest,
+  } = useFriends();
 
   useSocket("init", (payload: initPayload) => {
     setFriendRequest(payload.friendshipRequest);
