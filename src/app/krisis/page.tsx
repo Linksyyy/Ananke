@@ -14,20 +14,20 @@ import Feedback from "@/Components/Feedback";
 export default function Page() {
   const [hide, setHide] = useState(true);
   const { setCards } = useCards();
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
 
   useEffect(() => {
     const userCache = localStorage.getItem("user-cache")!;
     setUser(JSON.parse(userCache));
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
     setCards(cards);
-  }, [cards, setCards]);
+  }, [setCards]);
 
   return (
     <main className="flex min-h-screen w-full flex-col px-16">
-      <Feedback/>
+      <Feedback />
       <GlobalKbListener />
       <div className="flex justify-center min-h-screen">
         <SessionSummoner hide={hide} />
@@ -37,9 +37,7 @@ export default function Page() {
         <ExtendedCard />
         <button
           className="absolute left-10 top-8 bg-neutral-800 p-4 rounded-4xl border border-neutral-700 cursor-pointer hover:bg-neutral-900"
-          onClick={() => {
-            hide ? setHide(false) : setHide(true);
-          }}
+          onClick={() => setHide(!hide)}
         >
           {hide ? <RiMenuUnfoldLine /> : <RiMenuUnfold2Line />}
         </button>

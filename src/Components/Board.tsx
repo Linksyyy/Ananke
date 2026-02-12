@@ -102,7 +102,7 @@ export default function Board() {
                   ? `translate(${hex.x}px, ${hex.y}px) scale(1)`
                   : `translate(${hex.x}px, ${hex.y}px) scale(0) translateY(20px)`,
                 transition:
-                  "opacity 500ms ease-out, transform 700ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                  "opacity 900ms ease-out, transform 700ms cubic-bezier(0.175, 0.885, 0.32, 1.275)",
                 transitionDelay: `${hex.distance * 80}ms`,
               }}
             >

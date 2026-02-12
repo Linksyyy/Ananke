@@ -54,8 +54,8 @@ export default function socketServer(
     const friendships = await getFriendshipOfUser(user.id);
 
     socket.emit("init", {
-      friendshipRequest: friendships.map((f) => f.sender),
-      friendshipSent: friendships.map((f) => f.receiver),
+      friendshipRequest: friendships.map((f) => f.receiver),
+      friendshipSent: friendships.map((f) => f.sender),
       friends: friendships
         .filter((f) => f.status === "accepted")
         .map((f) => (f.sender.id === user.id ? f.receiver : f.sender)),
