@@ -18,17 +18,6 @@ export interface initPayload {
   friends: user[];
 }
 
-export interface Hex {
-  q: number;
-  r: number;
-  s: number;
-}
-
-export interface Card {
-  id: string;
-  name: string;
-}
-
 export interface ServerToClientEvents {
   init: (payload: initPayload) => void;
   feedback: (data: { message: string; isError: boolean }) => void;
