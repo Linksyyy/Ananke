@@ -7,22 +7,22 @@
 import { create } from "zustand";
 import { user } from "@/sockets-server";
 
+export interface friendship {
+  id: string;
+  status: "pending" | "accepted";
+  user: user;
+  created_at: Date;
+  sender_id: string;
+}
+
 interface tFriendsStore {
-  friends: user[];
-  friendSent: user[];
-  friendRequest: user[];
-  setFriends: (f: user[]) => void;
-  setFriendSent: (f: user[]) => void;
-  setFriendRequest: (f: user[]) => void;
+  friendships: friendship[];
+  setFriendships: (f: friendship[]) => void;
 }
 
 const useFriends = create<tFriendsStore>((set) => ({
-  friends: [],
-  friendSent: [],
-  friendRequest: [],
-  setFriends: (f) => set({ friends: f }),
-  setFriendSent: (f) => set({ friendRequest: f }),
-  setFriendRequest: (f) => set({ friendRequest: f }),
+  friendships: [],
+  setFriendships: (f) => set({ friendships: f }),
 }));
 
 export { useFriends };

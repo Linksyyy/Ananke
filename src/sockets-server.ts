@@ -9,17 +9,18 @@ export interface user {
   id: string;
   username: string;
   email: string;
-  bcrypted_password: string;
 }
 
-export interface initPayload {
-  friendshipRequest: user[];
-  friendshipSent: user[];
-  friends: user[];
+export interface friendship {
+  id: string;
+  status: "pending" | "accepted";
+  user: user;
+  created_at: Date;
+  sender_id: string;
 }
 
 export interface ServerToClientEvents {
-  init: (payload: initPayload) => void;
+  init: (payload: friendship[]) => void;
   feedback: (data: { message: string; isError: boolean }) => void;
   "friendship-receive": (username: string) => void;
   "board-update": (hex: Hex, card: Card) => void;
@@ -53,14 +54,7 @@ export default function socketServer(
 
     const friendships = await getFriendshipOfUser(user.id);
 
-    socket.emit("init", {
-      friendshipRequest: friendships.map((f) => f.receiver),
-      friendshipSent: friendships.map((f) => f.sender),
-      friends: friendships
-        .filter((f) => f.status === "accepted")
-        .map((f) => (f.sender.id === user.id ? f.receiver : f.sender)),
-    });
-
+    socket.emit("init", friendships);
     socket.on("send-friend", async (username: string) => {
       const friend = await getUserByUsername(username);
 

@@ -37,7 +37,7 @@ export async function createFriendship(user1Id: string, user2Id: string) {
 }
 
 export async function getFriendshipOfUser(userId: string) {
-  return await db.query.friendshipTable.findMany({
+  const data = await db.query.friendshipTable.findMany({
     where: or(
       eq(schema.friendshipTable.user_1, userId),
       eq(schema.friendshipTable.user_2, userId),
@@ -47,8 +47,16 @@ export async function getFriendshipOfUser(userId: string) {
       user_2: false,
     },
     with: {
-      sender: true,
-      receiver: true,
+      sender: { columns: { bcrypted_password: false } },
+      receiver: { columns: { bcrypted_password: false } },
     },
   });
+
+  return data.map((f) => ({
+    id: f.id,
+    status: f.status,
+    user: f.sender.id === userId ? f.receiver : f.sender,
+    created_at: f.created_at,
+    sender_id: f.sender.id,
+  }));
 }

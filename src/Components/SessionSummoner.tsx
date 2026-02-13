@@ -7,12 +7,12 @@ import { useFriends } from "@/store/friendsStore";
 export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
   const [friendUsername, setFriendUsername] = useState("");
-  const { friends, friendSent, friendRequest, setFriendRequest } = useFriends();
+  const { friendships, setFriendships } = useFriends();
 
   useSocket("friendship-receive", (senderUsername) => {
-    const newRequestList = friendRequest;
+    const newRequestList = friendships;
     newRequestList.push(senderUsername);
-    setFriendRequest(newRequestList);
+    setFriendships(newRequestList);
   });
 
   const handleSendFriendRequest = (e: React.SubmitEvent) => {
@@ -57,11 +57,13 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Friend List</h3>
           </div>
-          {friends.map((f, index) => (
-            <p key={index} className="text-neutral-400 px-5">
-              {f.username}
-            </p>
-          ))}
+          {friendships
+            .filter((f) => f.status === "accepted")
+            .map((f, index) => (
+              <p key={index} className="text-neutral-400 px-5">
+                {f.user.username} --- {f.id}
+              </p>
+            ))}
         </div>
       ),
     },
@@ -73,11 +75,13 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Sent Invites</h3>
           </div>
-          {friendSent.map((f, index) => (
-            <p key={index} className="text-neutral-400 px-5">
-              {f.username}
-            </p>
-          ))}
+          {friendships
+            .filter((f) => f.status === "pending" && f.sender_id === user!.id)
+            .map((f, index) => (
+              <p key={index} className="text-neutral-400 px-5">
+                {f.user.username} --- {f.status} --- {f.id}
+              </p>
+            ))}
         </div>
       ),
     },
@@ -89,11 +93,13 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
           <div className="flex w-full items-center justify-center pt-4">
             <h3 className="text-xl font-semibold mb-3">Friend Requests</h3>
           </div>
-          {friendRequest.map((f, index) => (
-            <p key={index} className="text-neutral-400 px-5">
-              {f.username}
-            </p>
-          ))}
+          {friendships
+            .filter((f) => f.status === "pending" && f.sender_id !== user!.id)
+            .map((f, index) => (
+              <p key={index} className="text-neutral-400 px-5">
+                {f.user.username} --- {f.status} --- {f.id}
+              </p>
+            ))}
         </div>
       ),
     },

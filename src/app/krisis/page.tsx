@@ -7,20 +7,12 @@ import Board from "@/Components/Board";
 import ExtendedCard from "@/Components/ExtendedCard";
 import Deck from "@/Components/Deck";
 import SessionSummoner from "@/Components/SessionSummoner";
-import { useUser } from "@/store/userStore";
 import { RiMenuUnfold2Line, RiMenuUnfoldLine } from "react-icons/ri";
 import Feedback from "@/Components/Feedback";
 
 export default function Page() {
   const [hide, setHide] = useState(true);
   const { setCards } = useCards();
-  const { setUser } = useUser();
-
-  useEffect(() => {
-    const userCache = localStorage.getItem("user-cache")!;
-    setUser(JSON.parse(userCache));
-  }, [setUser]);
-
   useEffect(() => {
     setCards(cards);
   }, [setCards]);
