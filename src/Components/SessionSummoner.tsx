@@ -3,6 +3,25 @@ import { useUser } from "@/store/userStore";
 import React, { useState } from "react";
 import Tabs from "./Tabs";
 import { useFriends } from "@/store/friendsStore";
+import { friendship } from "@/sockets-server";
+
+function tab(items: friendship[]) {
+  return (
+    <div className="border border-neutral-700 rounded-lg h-full grow">
+      <div className="flex w-full items-center justify-center pt-4">
+        <h3 className="text-xl font-semibold mb-3">Friend Requests</h3>
+      </div>
+      {items.map((f, index) => (
+        <p
+          key={index}
+          className="text-neutral-400 text-sm px-5 border-y border-neutral-800 mx-2 py-3"
+        >
+          {f.user.username} {f.id}
+        </p>
+      ))}
+    </div>
+  );
+}
 
 export default function SessionSummoner({ hide }: { hide: boolean }) {
   const { user } = useUser();
@@ -52,55 +71,24 @@ export default function SessionSummoner({ hide }: { hide: boolean }) {
     {
       id: "friends",
       label: "Friends",
-      content: (
-        <div className="border border-neutral-700 rounded-lg h-full grow">
-          <div className="flex w-full items-center justify-center pt-4">
-            <h3 className="text-xl font-semibold mb-3">Friend List</h3>
-          </div>
-          {friendships
-            .filter((f) => f.status === "accepted")
-            .map((f, index) => (
-              <p key={index} className="text-neutral-400 px-5">
-                {f.user.username} --- {f.id}
-              </p>
-            ))}
-        </div>
-      ),
+      content: tab(friendships.filter((f) => f.status === "accepted")),
     },
     {
       id: "sent",
       label: "Sent",
-      content: (
-        <div className="border border-neutral-700 rounded-lg h-full grow">
-          <div className="flex w-full items-center justify-center pt-4">
-            <h3 className="text-xl font-semibold mb-3">Sent Invites</h3>
-          </div>
-          {friendships
-            .filter((f) => f.status === "pending" && f.sender_id === user!.id)
-            .map((f, index) => (
-              <p key={index} className="text-neutral-400 px-5">
-                {f.user.username} --- {f.status} --- {f.id}
-              </p>
-            ))}
-        </div>
+      content: tab(
+        friendships.filter(
+          (f) => f.status === "pending" && f.sender_id === user!.id,
+        ),
       ),
     },
     {
       id: "requests",
       label: "Requests",
-      content: (
-        <div className="border border-neutral-700 rounded-lg h-full grow">
-          <div className="flex w-full items-center justify-center pt-4">
-            <h3 className="text-xl font-semibold mb-3">Friend Requests</h3>
-          </div>
-          {friendships
-            .filter((f) => f.status === "pending" && f.sender_id !== user!.id)
-            .map((f, index) => (
-              <p key={index} className="text-neutral-400 px-5">
-                {f.user.username} --- {f.status} --- {f.id}
-              </p>
-            ))}
-        </div>
+      content: tab(
+        friendships.filter(
+          (f) => f.status === "pending" && f.sender_id !== user!.id,
+        ),
       ),
     },
   ];
